@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <title>Currency</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            document.querySelector('form').onsubmit = function() {
+                fetch("http://api.currencylayer.com/live?access_key=162dd31ad1a35b914dfad35b618ff0bb")
+                .then(response => response.json())
+                .then(data => {
+                    const currency = document.querySelector('#currency').value.toUpperCase();
+                    const quotes = data.quotes[currency];
+                    if (quotes !== undefined) {
+                        const result = `${currency} = ${quotes.toFixed(8)} `;
+                        document.querySelector('#result').innerHTML = result;
+                    } else {
+                        document.querySelector('#result').innerHTML = 'Invalid currency.';
+                    }
+                })
+                .catch(error => {
+                    console.log('Error:', error);
+                });
+                return false;
+            }
+        });
+    </script>
+    <body>
+        <form>
+            <input id="currency" placeholder="Currency">
+            <input type="submit" value="Convert">
+        </form>
+        <div id="result">
+        </div>
+    </body>
+</html>

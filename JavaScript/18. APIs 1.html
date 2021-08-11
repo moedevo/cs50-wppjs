@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+    <title>Currency</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch("http://api.currencylayer.com/live?access_key=162dd31ad1a35b914dfad35b618ff0bb")
+            .then(response => response.json())
+            .then(data => {
+                const quotes = data.quotes.USDBTC;
+                document.querySelector('body').innerHTML = ` 1 USD is equal to ${quotes.toFixed(8)} BTC`;
+            });
+        });
+    </script>
+    <body>
+    </body>
+</html>
